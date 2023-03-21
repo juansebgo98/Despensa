@@ -69,10 +69,23 @@ public class SubProductoRestController {
 		return new ResponseEntity<SubProducto>(subProducto, HttpStatus.OK);
 	}
 	
+	@GetMapping("/subProductos/producto/{id}")
+	public ResponseEntity<?> buscarPorProducto(@PathVariable Long id){
+		Map<String, Object> response = new HashMap<>();
+		Producto producto = new Producto();
+		producto.setId(id);
+		List<SubProducto> lista = subProductoService.obtenerSubProductosPorProducto(producto);
+		if(lista == null){
+			response.put("mensaje", "No se ha podido recuperar productos del almacenamiento ID:".concat(id.toString()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<SubProducto>>(lista, HttpStatus.OK);
+	}
+	
 	@PostMapping("/subProductos")
 	public ResponseEntity<?> create(@Valid @RequestBody SubProducto subProducto, BindingResult result) {
-		Producto producto = productoService.findById(subProducto.getProducto().getId());
-		subProducto.setProducto(producto);
+	    Producto producto = productoService.findById(subProducto.getProducto().getId());
+	    subProducto.setProducto(producto);
 		
 		SubProducto subProductoNew = null;
 		Map<String, Object> response = new HashMap<>();
@@ -88,7 +101,7 @@ public class SubProductoRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		if (subProducto.getProducto() == null || subProducto.getProducto().getId() == null) {
-	        response.put("mensaje", "El campo 'producto_id' no puede ser null");
+	        response.put("mensaje", "El campo Producto no se ha encontrado en la base de dato o es null");
 	        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	    }
 		try {
@@ -143,9 +156,13 @@ public class SubProductoRestController {
 	@DeleteMapping("/subProductos/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
+		SubProducto sub = subProductoService.findById(id);
 
 		try {
-			SubProducto sub = subProductoService.findById(id);
+			if(sub == null){
+				response.put("mensaje", "No se ha encontrado sub producto "+id+" en la base de datos");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 			Producto productoPrincipal = sub.getProducto();
 			subProductoService.delete(id);
 			productoPrincipal.setCantidad(productoPrincipal.getCantidad()-1);
@@ -156,7 +173,7 @@ public class SubProductoRestController {
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-		response.put("mensaje", "Se ha borrar el subProducto en la base de datos");
+		response.put("mensaje", "Se ha borrar el subProducto "+sub.getId()+" en la base de datos");
 		return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
 	}
 

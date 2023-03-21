@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.despensa.personal.models.dao.ISubProductoDao;
+import com.despensa.personal.models.entity.Producto;
 import com.despensa.personal.models.entity.SubProducto;
 
 @Service
@@ -47,6 +48,12 @@ public class SubProductosServiceImpl implements ISubProductoService{
 	public void delete(Long id) {
 		subProductoDao.deleteById(id);
 		
+	}
+
+	@Override
+	@Transactional
+	public List<SubProducto> obtenerSubProductosPorProducto(Producto producto) {
+		return subProductoDao.obtenerPorProducto(producto);
 	}
 
 

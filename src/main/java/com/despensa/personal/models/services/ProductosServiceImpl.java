@@ -50,6 +50,7 @@ public class ProductosServiceImpl implements IProductoService{
 		
 	}
 	
+	@Override
 	@Transactional
 	public List<Producto> obtenerProductosAlmacenamiento(Almacenamiento almacenamiento) {
 		return productoDao.consultarProductosPorAlmacenamiento(almacenamiento);

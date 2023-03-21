@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -15,7 +17,7 @@ public class Producto implements Serializable{
 	private static final long serialVersionUID = -6590703761721298027L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
     protected Long id;
     
     @NotEmpty(message ="no puede estar vacio")
@@ -23,7 +25,6 @@ public class Producto implements Serializable{
 	@Column(nullable=false)
     protected String nombre;
     
-	@NotEmpty(message ="no puede estar vacio")
 	protected Integer cantidad;
 
 	@Column(name = "imagen", columnDefinition = "TEXT")
@@ -34,6 +35,7 @@ public class Producto implements Serializable{
     private String descripcion;
 	
 	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<SubProducto> subProductos = new ArrayList<>();
 	
    
@@ -48,9 +50,9 @@ public class Producto implements Serializable{
 
 	public Producto(Long id,
 			@NotEmpty(message = "no puede estar vacio") @Size(min = 2, max = 50, message = "el tamaño tiene que estar entre 4 y 12") String nombre,
-			@NotEmpty(message = "no puede estar vacio") Integer cantidad,
-			@NotEmpty(message = "no puede estar vacio") String imagen,
-			@NotEmpty(message = "no puede estar vacio") String descripcion, List<SubProducto> subProductos,
+			Integer cantidad,
+			String imagen,
+			String descripcion, List<SubProducto> subProductos,
 			Almacenamiento almacenamiento) {
 		super();
 		this.id = id;
