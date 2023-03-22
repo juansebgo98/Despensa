@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -56,7 +57,7 @@ public class AlmacenamientoRestController {
 	}
 	
 	/**
-	 * Obtenemos todos los almacenamiento de un almacenamiento
+	 * Obtenemos el almacenamiento apartir de un producto
 	 * @param id Id del almacenamiento del que queremos obtener la lista de almacenamiento
 	 * @return
 	 */
@@ -105,7 +106,7 @@ public class AlmacenamientoRestController {
 	@PostMapping("/almacenamiento")
 	public ResponseEntity<?> create(@Valid @RequestBody Almacenamiento almacenamiento, BindingResult result) {
 
-		Almacenamiento productoNew = null;
+		Almacenamiento almacenamientoNew = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -120,7 +121,7 @@ public class AlmacenamientoRestController {
 		}
 		
 		try {
-			productoNew = almacenamientoService.save(almacenamiento);
+			almacenamientoNew = almacenamientoService.save(almacenamiento);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -128,7 +129,7 @@ public class AlmacenamientoRestController {
 		}
 		
 		response.put("mensaje", "El almacenamiento ha sido creado con éxito!");
-		response.put("almacenamiento", productoNew);
+		response.put("almacenamiento", almacenamientoNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
@@ -176,6 +177,10 @@ public class AlmacenamientoRestController {
 
 		try {
 			almacenamientoService.delete(id);
+		}catch(DataIntegrityViolationException e) {
+			response.put("mensaje", "Aun hay productos en el almacenamiento");
+			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Error al borrar el almacenamiento en  la base de datos");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
