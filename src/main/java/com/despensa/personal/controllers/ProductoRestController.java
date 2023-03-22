@@ -121,7 +121,7 @@ public class ProductoRestController {
 			response.put("errors", errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		//algo commit
+
 		try {
 			productoNew = productoService.save(producto);
 		} catch(DataAccessException e) {
