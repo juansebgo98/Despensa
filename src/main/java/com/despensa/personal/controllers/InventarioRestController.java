@@ -24,36 +24,36 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.despensa.personal.models.entity.Producto;
-import com.despensa.personal.models.entity.SubProducto;
+import com.despensa.personal.models.entity.Inventario;
 import com.despensa.personal.models.services.IProductoService;
-import com.despensa.personal.models.services.ISubProductoService;
+import com.despensa.personal.models.services.IInventarioService;
 
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api")
-public class SubProductoRestController {
+public class InventarioRestController {
 	
 	@Autowired
-	private ISubProductoService subProductoService;
+	private IInventarioService subProductoService;
 	@Autowired
 	private IProductoService productoService;
 	
 	@GetMapping("/subProductos")
-	public List<SubProducto> index(){
+	public List<Inventario> index(){
 		return subProductoService.findAll();
 	}
 	
 	@GetMapping("/subProductos/page/{page}")
-	public Page<SubProducto> index(@PathVariable Integer page){
+	public Page<Inventario> index(@PathVariable Integer page){
 		return subProductoService.findAll(PageRequest.of(page, 5));
 	}
 	
 	@GetMapping("/subProductos/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		SubProducto subProducto = null;
+		Inventario subProducto = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			subProducto = subProductoService.findById(id);			
@@ -66,7 +66,7 @@ public class SubProductoRestController {
 			response.put("mensaje", "El subProducto ID:".concat(id.toString().concat(" no existe en la base de datos")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<SubProducto>(subProducto, HttpStatus.OK);
+		return new ResponseEntity<Inventario>(subProducto, HttpStatus.OK);
 	}
 	
 	@GetMapping("/subProductos/producto/{id}")
@@ -74,20 +74,20 @@ public class SubProductoRestController {
 		Map<String, Object> response = new HashMap<>();
 		Producto producto = new Producto();
 		producto.setId(id);
-		List<SubProducto> lista = subProductoService.obtenerSubProductosPorProducto(producto);
+		List<Inventario> lista = subProductoService.obtenerInventariosPorProducto(producto);
 		if(lista == null){
 			response.put("mensaje", "No se ha podido recuperar productos del almacenamiento ID:".concat(id.toString()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<SubProducto>>(lista, HttpStatus.OK);
+		return new ResponseEntity<List<Inventario>>(lista, HttpStatus.OK);
 	}
 	
 	@PostMapping("/subProductos")
-	public ResponseEntity<?> create(@Valid @RequestBody SubProducto subProducto, BindingResult result) {
+	public ResponseEntity<?> create(@Valid @RequestBody Inventario subProducto, BindingResult result) {
 	    Producto producto = productoService.findById(subProducto.getProducto().getId());
 	    subProducto.setProducto(producto);
 		
-		SubProducto subProductoNew = null;
+		Inventario subProductoNew = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -124,8 +124,8 @@ public class SubProductoRestController {
 	}
 	
 	@PutMapping("/subProductos/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody SubProducto subProducto, BindingResult result, @PathVariable Long id) {
-		SubProducto subProductoActual = subProductoService.findById(id);
+	public ResponseEntity<?> update(@Valid @RequestBody Inventario subProducto, BindingResult result, @PathVariable Long id) {
+		Inventario subProductoActual = subProductoService.findById(id);
 		Map<String, Object> response = new HashMap<>();
 		if(result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err->"El campo '"+err.getField()+"' "+err.getDefaultMessage()).collect(Collectors.toList());
@@ -136,7 +136,7 @@ public class SubProductoRestController {
 			response.put("mensaje", "Error al actualizar el subProducto, no existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		SubProducto productoActualizado=null;
+		Inventario productoActualizado=null;
 		try {
 			subProductoActual.setFechaCaducidad(subProducto.getFechaCaducidad());
 			subProductoActual.setProducto(subProducto.getProducto());
@@ -156,7 +156,7 @@ public class SubProductoRestController {
 	@DeleteMapping("/subProductos/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
-		SubProducto sub = subProductoService.findById(id);
+		Inventario sub = subProductoService.findById(id);
 
 		try {
 			if(sub == null){

@@ -159,7 +159,7 @@ public class ProductoRestController {
 		try {
 			productoActual.setNombre(producto.getNombre());
 			productoActual.setCantidad(producto.getCantidad());
-			productoActual.setSubProductos(producto.getSubProductos());
+			productoActual.setInventarios(producto.getInventarios());
 			
 			productoActualizado = productoService.save(productoActual);			
 		}catch (DataAccessException e) {

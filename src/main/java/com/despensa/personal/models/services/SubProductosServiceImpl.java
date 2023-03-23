@@ -8,38 +8,38 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.despensa.personal.models.dao.ISubProductoDao;
+import com.despensa.personal.models.dao.IInventarioDao;
 import com.despensa.personal.models.entity.Producto;
-import com.despensa.personal.models.entity.SubProducto;
+import com.despensa.personal.models.entity.Inventario;
 
 @Service
-public class SubProductosServiceImpl implements ISubProductoService{
+public class InventariosServiceImpl implements IInventarioService{
 
 	@Autowired
-	private ISubProductoDao subProductoDao;
+	private IInventarioDao subProductoDao;
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<SubProducto> findAll() {
-		return (List<SubProducto>) subProductoDao.findAll();
+	public List<Inventario> findAll() {
+		return (List<Inventario>) subProductoDao.findAll();
 	}
 	
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<SubProducto> findAll(Pageable pageable) {
+	public Page<Inventario> findAll(Pageable pageable) {
 		return subProductoDao.findAll(pageable);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public SubProducto findById(Long id) {
+	public Inventario findById(Long id) {
 		return subProductoDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public SubProducto save(SubProducto subProducto) {
+	public Inventario save(Inventario subProducto) {
 		return subProductoDao.save(subProducto);
 	}
 
@@ -52,7 +52,7 @@ public class SubProductosServiceImpl implements ISubProductoService{
 
 	@Override
 	@Transactional
-	public List<SubProducto> obtenerSubProductosPorProducto(Producto producto) {
+	public List<Inventario> obtenerInventariosPorProducto(Producto producto) {
 		return subProductoDao.obtenerPorProducto(producto);
 	}
 

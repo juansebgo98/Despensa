@@ -6,20 +6,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.despensa.personal.models.entity.Producto;
-import com.despensa.personal.models.entity.SubProducto;
+import com.despensa.personal.models.entity.Inventario;
 
-public interface ISubProductoService {
+public interface IInventarioService {
 
-	public List<SubProducto> findAll();
+	public List<Inventario> findAll();
 	
-	public Page<SubProducto> findAll(Pageable pageable);
+	public Page<Inventario> findAll(Pageable pageable);
 
-	public SubProducto findById(Long id);
+	public Inventario findById(Long id);
 	
-	public SubProducto save(SubProducto subProducto);
+	public Inventario save(Inventario subProducto);
 	
 	public void delete(Long id);
 	
-	public List<SubProducto> obtenerSubProductosPorProducto(Producto producto);
+	public List<Inventario> obtenerInventariosPorProducto(Producto producto);
 
 }

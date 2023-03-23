@@ -1,70 +1,65 @@
-2023-03-22T13:35:24.187+01:00  WARN 160248 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=14h13m16s961ms668µs900ns).
-2023-03-22T14:10:49.774+01:00  WARN 160248 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=26m55s438ms992µs300ns).
-2023-03-22T14:15:22.929+01:00  INFO 160248 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2023-03-22T14:15:22.964+01:00  INFO 160248 --- [Thread-7] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2023-03-22T14:15:22.967+01:00  INFO 160248 --- [Thread-7] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
-2023-03-22T14:15:22.980+01:00  INFO 160248 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-22T14:15:22.983+01:00  INFO 160248 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2023-03-22T14:15:22.987+01:00  INFO 160248 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2023-03-22T14:15:23.203+01:00  INFO 160248 --- [restartedMain] c.despensa.personal.DespensaApplication  : Starting DespensaApplication using Java 17.0.5 with PID 160248 (C:\Users\OGM\Documents\Spring\spring-tool-workspace\despensa\target\classes started by OGM in C:\Users\OGM\Documents\Spring\spring-tool-workspace\despensa)
-2023-03-22T14:15:23.204+01:00  INFO 160248 --- [restartedMain] c.despensa.personal.DespensaApplication  : No active profile set, falling back to 1 default profile: "default"
-2023-03-22T14:15:24.042+01:00  INFO 160248 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-22T14:15:24.091+01:00  INFO 160248 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 3 JPA repository interfaces.
-2023-03-22T14:15:24.354+01:00  INFO 160248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2023-03-22T14:15:24.355+01:00  INFO 160248 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-03-22T14:15:24.356+01:00  INFO 160248 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
-2023-03-22T14:15:24.401+01:00  INFO 160248 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-03-22T14:15:24.401+01:00  INFO 160248 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1190 ms
-2023-03-22T14:15:24.485+01:00  INFO 160248 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-03-22T14:15:24.495+01:00  WARN 160248 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-03-22T14:15:24.509+01:00  INFO 160248 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
-2023-03-22T14:15:24.509+01:00  WARN 160248 --- [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
-2023-03-22T14:15:24.517+01:00  INFO 160248 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1b27c9be
-2023-03-22T14:15:24.517+01:00  INFO 160248 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
-2023-03-22T14:15:24.520+01:00  INFO 160248 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-03-22T14:15:24.728+01:00  INFO 160248 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-03-22T14:15:24.729+01:00  INFO 160248 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-22T14:15:26.864+01:00  WARN 160248 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-22T14:15:27.171+01:00  INFO 160248 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2023-03-22T14:15:27.209+01:00  INFO 160248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2023-03-22T14:15:27.223+01:00  INFO 160248 --- [restartedMain] c.despensa.personal.DespensaApplication  : Started DespensaApplication in 4.111 seconds (process running for 56668.847)
-2023-03-22T14:15:27.229+01:00  INFO 160248 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2023-03-22T15:36:56.949+01:00  WARN 160248 --- [HikariPool-3 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=1h11m32s165ms687µs300ns).
-2023-03-22T17:54:03.170+01:00  WARN 160248 --- [HikariPool-3 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=1h40m35s713ms944µs).
-2023-03-22T17:59:47.159+01:00  INFO 160248 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-03-22T17:59:47.159+01:00  INFO 160248 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-03-22T17:59:47.160+01:00  INFO 160248 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2023-03-22T17:59:47.212+01:00 DEBUG 160248 --- [http-nio-8080-exec-2] org.hibernate.SQL                        : select s1_0.id,s1_0.fecha_caducidad,s1_0.precio,s1_0.producto_id from sub_productos s1_0 where s1_0.producto_id=?
-2023-03-22T17:59:53.983+01:00 DEBUG 160248 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select s1_0.id,s1_0.fecha_caducidad,s1_0.precio,s1_0.producto_id from sub_productos s1_0 where s1_0.producto_id=?
-2023-03-22T17:59:53.985+01:00 DEBUG 160248 --- [http-nio-8080-exec-3] org.hibernate.SQL                        : select p1_0.id,a1_0.id,a1_0.lugar,a1_0.nombre,p1_0.cantidad,p1_0.descripcion,p1_0.imagen,p1_0.nombre from productos p1_0 left join almacenamientos a1_0 on a1_0.id=p1_0.almacenamiento_id where p1_0.id=?
-2023-03-22T17:59:58.949+01:00 DEBUG 160248 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select s1_0.id,s1_0.fecha_caducidad,s1_0.precio,s1_0.producto_id from sub_productos s1_0 where s1_0.producto_id=?
-2023-03-22T17:59:58.951+01:00 DEBUG 160248 --- [http-nio-8080-exec-4] org.hibernate.SQL                        : select p1_0.id,a1_0.id,a1_0.lugar,a1_0.nombre,p1_0.cantidad,p1_0.descripcion,p1_0.imagen,p1_0.nombre from productos p1_0 left join almacenamientos a1_0 on a1_0.id=p1_0.almacenamiento_id where p1_0.id=?
-2023-03-22T18:01:14.075+01:00  INFO 160248 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2023-03-22T18:01:14.086+01:00  INFO 160248 --- [Thread-11] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2023-03-22T18:01:14.087+01:00  INFO 160248 --- [Thread-11] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
-2023-03-22T18:01:14.092+01:00  INFO 160248 --- [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-22T18:01:14.092+01:00  INFO 160248 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
-2023-03-22T18:01:14.094+01:00  INFO 160248 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
-2023-03-22T18:01:14.167+01:00  INFO 160248 --- [restartedMain] c.despensa.personal.DespensaApplication  : Starting DespensaApplication using Java 17.0.5 with PID 160248 (C:\Users\OGM\Documents\Spring\spring-tool-workspace\despensa\target\classes started by OGM in C:\Users\OGM\Documents\Spring\spring-tool-workspace\despensa)
-2023-03-22T18:01:14.167+01:00  INFO 160248 --- [restartedMain] c.despensa.personal.DespensaApplication  : No active profile set, falling back to 1 default profile: "default"
-2023-03-22T18:01:14.344+01:00  INFO 160248 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-22T18:01:14.356+01:00  INFO 160248 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 3 JPA repository interfaces.
-2023-03-22T18:01:14.426+01:00  INFO 160248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2023-03-22T18:01:14.427+01:00  INFO 160248 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-03-22T18:01:14.427+01:00  INFO 160248 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
-2023-03-22T18:01:14.441+01:00  INFO 160248 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-03-22T18:01:14.441+01:00  INFO 160248 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 271 ms
-2023-03-22T18:01:14.469+01:00  INFO 160248 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-03-22T18:01:14.472+01:00  WARN 160248 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-03-22T18:01:14.476+01:00  INFO 160248 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
-2023-03-22T18:01:14.476+01:00  WARN 160248 --- [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
-2023-03-22T18:01:14.478+01:00  INFO 160248 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3d552324
-2023-03-22T18:01:14.479+01:00  INFO 160248 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
-2023-03-22T18:01:14.479+01:00  INFO 160248 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-03-22T18:01:14.532+01:00  INFO 160248 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-03-22T18:01:14.533+01:00  INFO 160248 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-22T18:01:14.821+01:00  WARN 160248 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-22T18:01:14.898+01:00  INFO 160248 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2023-03-22T18:01:14.909+01:00  INFO 160248 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2023-03-22T18:01:14.915+01:00  INFO 160248 --- [restartedMain] c.despensa.personal.DespensaApplication  : Started DespensaApplication in 0.777 seconds (process running for 70216.557)
-2023-03-22T18:01:14.917+01:00  INFO 160248 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2023-03-23T12:51:04.449+01:00  WARN 494900 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14h36m28s258ms86µs600ns).
+2023-03-23T20:00:53.553+01:00  WARN 494900 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h47m28s482ms811µs).
+2023-03-23T20:44:42.493+01:00  WARN 494900 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14m18s488ms477µs100ns).
+2023-03-23T21:27:45.206+01:00  WARN 494900 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=32m2s550ms326µs400ns).
+2023-03-23T21:49:22.617+01:00  INFO 494900 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 8 class path changes (1 addition, 1 deletion, 6 modifications)
+2023-03-23T21:49:22.663+01:00  INFO 494900 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-03-23T21:49:22.668+01:00  INFO 494900 --- [Thread-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-03-23T21:49:22.694+01:00  INFO 494900 --- [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-23T21:49:22.711+01:00  INFO 494900 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-03-23T21:49:22.718+01:00  INFO 494900 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-03-23T21:49:22.867+01:00  INFO 494900 --- [restartedMain] c.despensa.personal.DespensaApplication  : Starting DespensaApplication using Java 17.0.5 with PID 494900 (C:\Users\OGM\git\Despensa\target\classes started by OGM in C:\Users\OGM\git\Despensa)
+2023-03-23T21:49:22.867+01:00  INFO 494900 --- [restartedMain] c.despensa.personal.DespensaApplication  : No active profile set, falling back to 1 default profile: "default"
+2023-03-23T21:49:23.026+01:00  INFO 494900 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-23T21:49:23.036+01:00  INFO 494900 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 2 JPA repository interfaces.
+2023-03-23T21:49:23.077+01:00  WARN 494900 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.CannotLoadBeanClassException: Error loading class [com.despensa.personal.models.services.SubProductosServiceImpl] for bean with name 'subProductosServiceImpl' defined in file [C:\Users\OGM\git\Despensa\target\classes\com\despensa\personal\models\services\SubProductosServiceImpl.class]: problem with class file or dependent class
+2023-03-23T21:49:23.081+01:00  INFO 494900 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-03-23T21:49:23.099+01:00 ERROR 494900 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.CannotLoadBeanClassException: Error loading class [com.despensa.personal.models.services.SubProductosServiceImpl] for bean with name 'subProductosServiceImpl' defined in file [C:\Users\OGM\git\Despensa\target\classes\com\despensa\personal\models\services\SubProductosServiceImpl.class]: problem with class file or dependent class
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1508) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineTargetType(AbstractAutowireCapableBeanFactory.java:684) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:652) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getType(AbstractBeanFactory.java:692) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAnnotationOnBean(DefaultListableBeanFactory.java:732) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.boot.sql.init.dependency.AnnotationDependsOnDatabaseInitializationDetector.detect(AnnotationDependsOnDatabaseInitializationDetector.java:36) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer$DependsOnDatabaseInitializationPostProcessor.detectDependsOnInitializationBeanNames(DatabaseInitializationDependencyConfigurer.java:152) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer$DependsOnDatabaseInitializationPostProcessor.postProcessBeanFactory(DatabaseInitializationDependencyConfigurer.java:115) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:358) ~[spring-context-6.0.4.jar:6.0.4]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:194) ~[spring-context-6.0.4.jar:6.0.4]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:745) ~[spring-context-6.0.4.jar:6.0.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565) ~[spring-context-6.0.4.jar:6.0.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1291) ~[spring-boot-3.0.2.jar:3.0.2]
+	at com.despensa.personal.DespensaApplication.main(DespensaApplication.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-3.0.2.jar:3.0.2]
+Caused by: java.lang.ClassFormatError: Duplicate method name "save" with signature "(LSubProducto;)LSubProducto;" in class file com/despensa/personal/models/services/SubProductosServiceImpl
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method) ~[na:na]
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1012) ~[na:na]
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[na:na]
+	at java.base/java.net.URLClassLoader.defineClass(URLClassLoader.java:524) ~[na:na]
+	at java.base/java.net.URLClassLoader$1.run(URLClassLoader.java:427) ~[na:na]
+	at java.base/java.net.URLClassLoader$1.run(URLClassLoader.java:421) ~[na:na]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712) ~[na:na]
+	at java.base/java.net.URLClassLoader.findClass(URLClassLoader.java:420) ~[na:na]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.findClass(RestartClassLoader.java:136) ~[spring-boot-devtools-3.0.2.jar:3.0.2]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:118) ~[spring-boot-devtools-3.0.2.jar:3.0.2]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:467) ~[na:na]
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:283) ~[spring-core-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:461) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1569) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1502) ~[spring-beans-6.0.4.jar:6.0.4]
+	... 23 common frames omitted
+
