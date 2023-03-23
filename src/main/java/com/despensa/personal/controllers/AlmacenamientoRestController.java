@@ -158,7 +158,7 @@ public class AlmacenamientoRestController {
 			almacenamientoActual.setNombre(almacenamiento.getNombre());
 			almacenamientoActual.setLugar(almacenamiento.getLugar());
 			almacenamientoActual.setProductos(almacenamiento.getProductos());
-			
+			// a
 			productoActualizado = almacenamientoService.save(almacenamientoActual);			
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el almacenamiento en  la base de datos");
