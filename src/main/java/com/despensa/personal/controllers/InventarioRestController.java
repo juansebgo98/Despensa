@@ -36,45 +36,45 @@ import jakarta.validation.Valid;
 public class InventarioRestController {
 	
 	@Autowired
-	private IInventarioService subProductoService;
+	private IInventarioService inventarioService;
 	@Autowired
 	private IProductoService productoService;
 	
-	@GetMapping("/subProductos")
+	@GetMapping("/inventarios")
 	public List<Inventario> index(){
-		return subProductoService.findAll();
+		return inventarioService.findAll();
 	}
 	
-	@GetMapping("/subProductos/page/{page}")
+	@GetMapping("/inventarios/page/{page}")
 	public Page<Inventario> index(@PathVariable Integer page){
-		return subProductoService.findAll(PageRequest.of(page, 5));
+		return inventarioService.findAll(PageRequest.of(page, 5));
 	}
 	
-	@GetMapping("/subProductos/{id}")
+	@GetMapping("/inventarios/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		Inventario subProducto = null;
+		Inventario inventario = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			subProducto = subProductoService.findById(id);			
+			inventario = inventarioService.findById(id);			
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Error al consultar la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		if(subProducto == null){
-			response.put("mensaje", "El subProducto ID:".concat(id.toString().concat(" no existe en la base de datos")));
+		if(inventario == null){
+			response.put("mensaje", "El inventario ID:".concat(id.toString().concat(" no existe en la base de datos")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Inventario>(subProducto, HttpStatus.OK);
+		return new ResponseEntity<Inventario>(inventario, HttpStatus.OK);
 	}
 	
-	@GetMapping("/subProductos/producto/{id}")
+	@GetMapping("/inventarios/producto/{id}")
 	public ResponseEntity<?> buscarPorProducto(@PathVariable Long id){
 		Map<String, Object> response = new HashMap<>();
 		Producto producto = new Producto();
 		producto.setId(id);
-		List<Inventario> lista = subProductoService.obtenerInventariosPorProducto(producto);
+		List<Inventario> lista = inventarioService.obtenerInventariosPorProducto(producto);
 		if(lista == null){
 			response.put("mensaje", "No se ha podido recuperar productos del almacenamiento ID:".concat(id.toString()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
@@ -82,12 +82,12 @@ public class InventarioRestController {
 		return new ResponseEntity<List<Inventario>>(lista, HttpStatus.OK);
 	}
 	
-	@PostMapping("/subProductos")
-	public ResponseEntity<?> create(@Valid @RequestBody Inventario subProducto, BindingResult result) {
-	    Producto producto = productoService.findById(subProducto.getProducto().getId());
-	    subProducto.setProducto(producto);
+	@PostMapping("/inventarios")
+	public ResponseEntity<?> create(@Valid @RequestBody Inventario inventario, BindingResult result) {
+	    Producto producto = productoService.findById(inventario.getProducto().getId());
+	    inventario.setProducto(producto);
 		
-		Inventario subProductoNew = null;
+		Inventario inventarioNew = null;
 		Map<String, Object> response = new HashMap<>();
 		
 		if(result.hasErrors()) {
@@ -100,14 +100,14 @@ public class InventarioRestController {
 			response.put("errors", errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		if (subProducto.getProducto() == null || subProducto.getProducto().getId() == null) {
+		if (inventario.getProducto() == null || inventario.getProducto().getId() == null) {
 	        response.put("mensaje", "El campo Producto no se ha encontrado en la base de dato o es null");
 	        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	    }
 		try {
-			subProductoNew = subProductoService.save(subProducto);
-			if(subProductoNew!=null && subProductoNew.getProducto()!=null) {
-				Producto productoPrincipal = subProductoNew.getProducto();
+			inventarioNew = inventarioService.save(inventario);
+			if(inventarioNew!=null && inventarioNew.getProducto()!=null) {
+				Producto productoPrincipal = inventarioNew.getProducto();
 				productoPrincipal.setCantidad(productoPrincipal.getCantidad()+1);
 				productoService.save(productoPrincipal);
 			}
@@ -118,45 +118,45 @@ public class InventarioRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "El subProducto ha sido creado con éxito!");
-		response.put("subProducto", subProductoNew);
+		response.put("mensaje", "El inventario ha sido creado con éxito!");
+		response.put("inventario", inventarioNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/subProductos/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Inventario subProducto, BindingResult result, @PathVariable Long id) {
-		Inventario subProductoActual = subProductoService.findById(id);
+	@PutMapping("/inventarios/{id}")
+	public ResponseEntity<?> update(@Valid @RequestBody Inventario inventario, BindingResult result, @PathVariable Long id) {
+		Inventario inventarioActual = inventarioService.findById(id);
 		Map<String, Object> response = new HashMap<>();
 		if(result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err->"El campo '"+err.getField()+"' "+err.getDefaultMessage()).collect(Collectors.toList());
 			response.put("errors", errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		if(subProductoActual==null) {
-			response.put("mensaje", "Error al actualizar el subProducto, no existe en la base de datos");
+		if(inventarioActual==null) {
+			response.put("mensaje", "Error al actualizar el inventario, no existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		Inventario productoActualizado=null;
 		try {
-			subProductoActual.setFechaCaducidad(subProducto.getFechaCaducidad());
-			subProductoActual.setProducto(subProducto.getProducto());
+			inventarioActual.setFechaCaducidad(inventario.getFechaCaducidad());
+			inventarioActual.setProducto(inventario.getProducto());
 			
-			productoActualizado = subProductoService.save(subProductoActual);			
+			productoActualizado = inventarioService.save(inventarioActual);			
 		}catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el subProducto en  la base de datos");
+			response.put("mensaje", "Error al actualizar el inventario en  la base de datos");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje", "El subProducto ha sido actualizado con exito");
-		response.put("subProducto", productoActualizado);
+		response.put("mensaje", "El inventario ha sido actualizado con exito");
+		response.put("inventario", productoActualizado);
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/subProductos/{id}")
+	@DeleteMapping("/inventarios/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
-		Inventario sub = subProductoService.findById(id);
+		Inventario sub = inventarioService.findById(id);
 
 		try {
 			if(sub == null){
@@ -164,16 +164,16 @@ public class InventarioRestController {
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			Producto productoPrincipal = sub.getProducto();
-			subProductoService.delete(id);
+			inventarioService.delete(id);
 			productoPrincipal.setCantidad(productoPrincipal.getCantidad()-1);
 			productoService.save(productoPrincipal);
 			
 		}catch (DataAccessException e) {
-			response.put("mensaje", "Error al borrar el subProducto en  la base de datos");
+			response.put("mensaje", "Error al borrar el inventario en  la base de datos");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-		response.put("mensaje", "Se ha borrar el subProducto "+sub.getId()+" en la base de datos");
+		response.put("mensaje", "Se ha borrar el inventario "+sub.getId()+" en la base de datos");
 		return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
 	}
 

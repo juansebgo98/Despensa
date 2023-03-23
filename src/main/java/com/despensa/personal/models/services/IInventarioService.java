@@ -16,7 +16,7 @@ public interface IInventarioService {
 
 	public Inventario findById(Long id);
 	
-	public Inventario save(Inventario subProducto);
+	public Inventario save(Inventario inventario);
 	
 	public void delete(Long id);
 	

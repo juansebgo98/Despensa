@@ -16,44 +16,44 @@ import com.despensa.personal.models.entity.Inventario;
 public class InventariosServiceImpl implements IInventarioService{
 
 	@Autowired
-	private IInventarioDao subProductoDao;
+	private IInventarioDao inventarioDao;
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inventario> findAll() {
-		return (List<Inventario>) subProductoDao.findAll();
+		return (List<Inventario>) inventarioDao.findAll();
 	}
 	
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Inventario> findAll(Pageable pageable) {
-		return subProductoDao.findAll(pageable);
+		return inventarioDao.findAll(pageable);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Inventario findById(Long id) {
-		return subProductoDao.findById(id).orElse(null);
+		return inventarioDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public Inventario save(Inventario subProducto) {
-		return subProductoDao.save(subProducto);
+	public Inventario save(Inventario inventario) {
+		return inventarioDao.save(inventario);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		subProductoDao.deleteById(id);
+		inventarioDao.deleteById(id);
 		
 	}
 
 	@Override
 	@Transactional
 	public List<Inventario> obtenerInventariosPorProducto(Producto producto) {
-		return subProductoDao.obtenerPorProducto(producto);
+		return inventarioDao.obtenerPorProducto(producto);
 	}
 
 

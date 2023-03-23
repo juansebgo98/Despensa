@@ -24,9 +24,6 @@ public class Producto implements Serializable{
 	@Column(name = "imagen", columnDefinition = "TEXT")
 	@NotEmpty(message ="no puede estar vacio")
     private String imagen;
-    
-	@NotEmpty(message ="no puede estar vacio")
-    private String descripcion;
 	
     @ManyToMany(mappedBy = "productos")
     private List<Inventario> inventarios;
@@ -37,13 +34,11 @@ public class Producto implements Serializable{
     
 	public Producto(Long id,
 			@NotEmpty(message = "no puede estar vacio") @Size(min = 2, max = 50, message = "el tamaño tiene que estar entre 4 y 12") String nombre,
-			@NotEmpty(message = "no puede estar vacio") String imagen,
-			@NotEmpty(message = "no puede estar vacio") String descripcion, List<Inventario> inventarios) {
+			@NotEmpty(message = "no puede estar vacio") String imagen, List<Inventario> inventarios) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.imagen = imagen;
-		this.descripcion = descripcion;
 		this.inventarios = inventarios;
 	}
 
@@ -69,14 +64,6 @@ public class Producto implements Serializable{
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public List<Inventario> getInventarios() {
