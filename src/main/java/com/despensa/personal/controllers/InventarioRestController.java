@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.despensa.personal.models.entity.Producto;
 import com.despensa.personal.models.entity.Inventario;
-import com.despensa.personal.models.services.IProductoService;
+//import com.despensa.personal.models.services.IProductoService;
 import com.despensa.personal.models.services.IInventarioService;
 
 import jakarta.validation.Valid;
@@ -38,7 +38,7 @@ public class InventarioRestController {
 	@Autowired
 	private IInventarioService inventarioService;
 	@Autowired
-	private IProductoService productoService;
+//	private IProductoService productoService;
 	
 	@GetMapping("/inventarios")
 	public List<Inventario> index(){
@@ -102,8 +102,8 @@ public class InventarioRestController {
 	        response.put("mensaje", "El campo Producto no se ha encontrado en la base de dato o es null");
 	        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 	    }else {
-	    	 Producto producto = productoService.findById(inventario.getProducto().getId());
-	 	    inventario.setProducto(producto);
+	    	// Producto producto = productoService.findById(inventario.getProducto().getId());
+	 	    //inventario.setProducto(producto);
 	    }
 		try {
 			inventarioNew = inventarioService.save(inventario);
