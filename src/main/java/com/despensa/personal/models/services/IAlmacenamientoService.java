@@ -1,11 +1,9 @@
 package com.despensa.personal.models.services;
 
 import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.despensa.personal.models.entity.Almacenamiento;
-import com.despensa.personal.models.entity.Producto;
 
 public interface IAlmacenamientoService {
 
@@ -17,7 +15,7 @@ public interface IAlmacenamientoService {
 	
 	public Almacenamiento save(Almacenamiento producto);
 	
-	public Almacenamiento obtenerAlmacenamientoProducto(Long producto);
+	public List<Almacenamiento> obtenerAlmacenamientoProducto(Long producto);
 	
 	public void delete(Long id);
 }

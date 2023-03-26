@@ -2,26 +2,33 @@ package com.despensa.personal.models.entity;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="almacenamientos")
-public class Almacenamiento implements Serializable{
+@Table(name = "almacenamientos")
+public class Almacenamiento implements Serializable {
 
-	private static final long serialVersionUID = 2899027107106949550L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    
+
+    @Column(name = "nombre")
     private String nombre;
-    
+
+    @Column(name = "lugar")
     private String lugar;
-    
-    @OneToMany(mappedBy = "almacenamiento")
-    private List<Inventario> inventarios;
+
+    @OneToMany(mappedBy = "almacenamiento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "inventarioAlmacenamiento")
+    private List<Inventario> inventarios = new ArrayList<>();
 
 	public Almacenamiento(Long id, String nombre, String lugar, List<Inventario> inventarios) {
 		super();

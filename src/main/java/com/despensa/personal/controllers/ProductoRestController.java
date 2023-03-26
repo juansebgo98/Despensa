@@ -157,11 +157,13 @@ public class ProductoRestController {
 		}
 		Producto productoActualizado=null;
 		try {
-			productoActual.setNombre(producto.getNombre());
-			productoActual.setCantidad(producto.getCantidad());
-			productoActual.setInventarios(producto.getInventarios());
+//			productoActual.setNombre(producto.getNombre());
+//			productoActual.setCantidad(producto.getCantidad());
+//			productoActual.setInventarios(producto.getInventarios());
 			
-			productoActualizado = productoService.save(productoActual);			
+			producto.setId(id);
+			
+			productoActualizado = productoService.save(producto);			
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el producto en  la base de datos");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));

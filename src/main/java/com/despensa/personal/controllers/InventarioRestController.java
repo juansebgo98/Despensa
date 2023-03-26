@@ -84,8 +84,6 @@ public class InventarioRestController {
 	
 	@PostMapping("/inventarios")
 	public ResponseEntity<?> create(@Valid @RequestBody Inventario inventario, BindingResult result) {
-	    Producto producto = productoService.findById(inventario.getProducto().getId());
-	    inventario.setProducto(producto);
 		
 		Inventario inventarioNew = null;
 		Map<String, Object> response = new HashMap<>();
@@ -103,14 +101,12 @@ public class InventarioRestController {
 		if (inventario.getProducto() == null || inventario.getProducto().getId() == null) {
 	        response.put("mensaje", "El campo Producto no se ha encontrado en la base de dato o es null");
 	        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+	    }else {
+	    	 Producto producto = productoService.findById(inventario.getProducto().getId());
+	 	    inventario.setProducto(producto);
 	    }
 		try {
 			inventarioNew = inventarioService.save(inventario);
-			if(inventarioNew!=null && inventarioNew.getProducto()!=null) {
-				Producto productoPrincipal = inventarioNew.getProducto();
-				productoPrincipal.setCantidad(productoPrincipal.getCantidad()+1);
-				productoService.save(productoPrincipal);
-			}
 			
 		} catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
@@ -138,10 +134,23 @@ public class InventarioRestController {
 		}
 		Inventario productoActualizado=null;
 		try {
-			inventarioActual.setFechaCaducidad(inventario.getFechaCaducidad());
-			inventarioActual.setProducto(inventario.getProducto());
+//			inventarioActual.setFechaCaducidad(inventario.getFechaCaducidad());
+//			inventarioActual.setProducto(inventario.getProducto());
+//			inventarioActual.setAlmacenamiento(inventario.getAlmacenamiento());
+//			inventarioActual.setCantidad(inventario.getCantidad());
+//			inventarioActual.setId(id);
+//			inventarioActual.setPrecio(inventario.getPrecio());
 			
-			productoActualizado = inventarioService.save(inventarioActual);			
+			inventario.setId(id);
+			if(inventario.getAlmacenamiento()== null) {
+				inventario.setAlmacenamiento(inventarioActual.getAlmacenamiento());
+			}
+			if(inventario.getProducto()== null) {
+				inventario.setProducto(inventarioActual.getProducto());
+			}
+//			productoActualizado = inventarioService.save(inventarioActual);		
+			productoActualizado = inventarioService.save(inventario);		
+			
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el inventario en  la base de datos");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
@@ -150,6 +159,67 @@ public class InventarioRestController {
 		
 		response.put("mensaje", "El inventario ha sido actualizado con exito");
 		response.put("inventario", productoActualizado);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/inventarios/{id}/aumentar/{cantidad}")
+	public ResponseEntity<?> aumentarCantidad(@PathVariable Long id, @PathVariable Integer cantidad) {
+		Inventario inventarioActual = inventarioService.findById(id);
+		Map<String, Object> response = new HashMap<>();
+		
+		if(inventarioActual==null) {
+			response.put("mensaje", "Error al actualizar el inventario, no existe en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		Inventario inventarioActualizado=null;
+		try {
+			inventarioActual.setCantidad(inventarioActual.getCantidad()+cantidad);
+			inventarioActual.setId(id);
+			
+			
+			inventarioActualizado = inventarioService.save(inventarioActual);		
+			
+		}catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar el inventario en  la base de datos");
+			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		response.put("mensaje", "El inventario ha sido actualizado con exito");
+		response.put("inventario", inventarioActualizado);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/inventarios/{id}/reducir/{cantidad}")
+	public ResponseEntity<?> reducirCantidad( @PathVariable Long id,@PathVariable Integer cantidad) {
+		Inventario inventarioActual = inventarioService.findById(id);
+		Map<String, Object> response = new HashMap<>();
+		
+		if(inventarioActual==null) {
+			response.put("mensaje", "Error al actualizar el inventario, no existe en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		Inventario inventarioActualizado=null;
+		try {
+			if(inventarioActual.getCantidad()-cantidad >= 0) {
+				inventarioActual.setCantidad(inventarioActual.getCantidad()-cantidad);
+				inventarioActual.setId(id);
+								
+				inventarioActualizado = inventarioService.save(inventarioActual);		
+				
+			}else {
+				response.put("mensaje", "La cantidad no puede ser negativa: Valor actual "+inventarioActual.getCantidad());
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+		}catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar el inventario en  la base de datos");
+			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		response.put("mensaje", "El inventario ha sido actualizado con exito");
+		response.put("inventario", inventarioActualizado);
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
 	
@@ -163,10 +233,7 @@ public class InventarioRestController {
 				response.put("mensaje", "No se ha encontrado sub producto "+id+" en la base de datos");
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			Producto productoPrincipal = sub.getProducto();
 			inventarioService.delete(id);
-			productoPrincipal.setCantidad(productoPrincipal.getCantidad()-1);
-			productoService.save(productoPrincipal);
 			
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Error al borrar el inventario en  la base de datos");

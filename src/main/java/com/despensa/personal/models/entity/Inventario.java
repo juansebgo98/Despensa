@@ -3,36 +3,37 @@ package com.despensa.personal.models.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="inventario")
+@Table(name = "inventario")
 public class Inventario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="almacenamiento_id", referencedColumnName="id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "almacenamiento_id")
+    @JsonBackReference(value = "inventarioAlmacenamiento")
     private Almacenamiento almacenamiento;
 
-    @ManyToOne
-    @JoinColumn(name="producto_id", referencedColumnName="id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
+    @JsonBackReference(value = "inventarioProducto")
     private Producto producto;
 
-    @Column(nullable = false)
+    @Column(name = "cantidad")
     private Integer cantidad;
 
-    @NotNull
+    @Column(name = "precio", nullable = false)
     private BigDecimal precio;
 
-    @NotNull
-    @Column(name="fecha_caducidad")
+    @Column(name = "fecha_caducidad")
     private LocalDate fechaCaducidad;
 
 	public Inventario(Long id, Almacenamiento almacenamiento, Producto producto, Integer cantidad,

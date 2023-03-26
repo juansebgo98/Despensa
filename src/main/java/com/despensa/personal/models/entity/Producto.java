@@ -1,32 +1,32 @@
 package com.despensa.personal.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name="productos")
-public class Producto implements Serializable{
+@Table(name = "productos")
+public class Producto implements Serializable {
 
-	private static final long serialVersionUID = -6590703761721298027L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "id")
-    protected Long id;
-    
-    @NotEmpty(message ="no puede estar vacio")
-	@Size(min=2, max=50, message="el tamaño tiene que estar entre 4 y 12")
-	@Column(nullable=false)
-    protected String nombre;
-    
-	@Column(name = "imagen", columnDefinition = "TEXT")
-	@NotEmpty(message ="no puede estar vacio")
+    @Id
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "imagen", nullable = false)
     private String imagen;
-	
-    @ManyToMany(mappedBy = "productos")
-    private List<Inventario> inventarios;
+
+    @Column(name = "nombre")
+    private String nombre;
+
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "inventarioProducto")
+    private List<Inventario> inventarios = new ArrayList<>();
 
     public Producto() {
     	super();
