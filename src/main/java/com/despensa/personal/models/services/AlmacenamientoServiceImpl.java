@@ -51,7 +51,7 @@ public class AlmacenamientoServiceImpl implements IAlmacenamientoService{
 
 
 	@Override
-	public Almacenamiento obtenerAlmacenamientoProducto(Long producto) {
+	public List<Almacenamiento> obtenerAlmacenamientoProducto(Long producto) {
 		return almacenamientoDao.obtenerAlmacenamientoProducto(producto);
 	}
 

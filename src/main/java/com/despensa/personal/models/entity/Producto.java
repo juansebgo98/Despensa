@@ -3,65 +3,59 @@ package com.despensa.personal.models.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name="productos")
-public class Producto implements Serializable{
+@Table(name = "productos")
+public class Producto implements Serializable {
 
-	private static final long serialVersionUID = -6590703761721298027L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "id")
-    protected Long id;
-    
-    @NotEmpty(message ="no puede estar vacio")
-	@Size(min=2, max=50, message="el tamaño tiene que estar entre 4 y 12")
-	@Column(nullable=false)
-    protected String nombre;
-    
-	protected Integer cantidad;
+    @Id
+    @Column(name = "id")
+    private Long id;
 
-	@Column(name = "imagen", columnDefinition = "TEXT")
-	@NotEmpty(message ="no puede estar vacio")
+    @Column(name = "imagen", nullable = false)
     private String imagen;
-    
-	@NotEmpty(message ="no puede estar vacio")
-    private String descripcion;
-	
-	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<SubProducto> subProductos = new ArrayList<>();
-	
-   
-    @ManyToOne
-    private Almacenamiento almacenamiento;
-    
-	
-	
-	public Producto() {
-		super();
-	}
 
+    @Column(name = "nombre")
+    private String nombre;
+
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "inventarioProducto")
+    private List<Inventario> inventarios = new ArrayList<>();
+
+    public Producto() {
+    	super();
+	}    
+    
 	public Producto(Long id,
 			@NotEmpty(message = "no puede estar vacio") @Size(min = 2, max = 50, message = "el tamaño tiene que estar entre 4 y 12") String nombre,
-			Integer cantidad,
-			String imagen,
-			String descripcion, List<SubProducto> subProductos,
-			Almacenamiento almacenamiento) {
+			@NotEmpty(message = "no puede estar vacio") String imagen, List<Inventario> inventarios) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.cantidad = cantidad;
 		this.imagen = imagen;
-		this.descripcion = descripcion;
-		this.subProductos = subProductos;
-		this.almacenamiento = almacenamiento;
+		this.inventarios = inventarios;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getImagen() {
@@ -72,51 +66,13 @@ public class Producto implements Serializable{
 		this.imagen = imagen;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public List<Inventario> getInventarios() {
+		return inventarios;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setInventarios(List<Inventario> inventarios) {
+		this.inventarios = inventarios;
 	}
-
-
-	public Almacenamiento getAlmacenamiento() {
-		return almacenamiento;
-	}
-
-	public void setAlmacenamiento(Almacenamiento almacenamiento) {
-		this.almacenamiento = almacenamiento;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public Integer getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public List<SubProducto> getSubProductos() {
-		return subProductos;
-	}
-
-	public void setSubProductos(List<SubProducto> subProductos) {
-		this.subProductos = subProductos;
-	}
-
+    
 	
 }

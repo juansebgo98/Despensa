@@ -64,13 +64,13 @@ public class AlmacenamientoRestController {
 	@GetMapping("/almacenamiento/producto/{id}")
 	public ResponseEntity<?> index(@PathVariable Long id){
 		Map<String, Object> response = new HashMap<>();
-		Almacenamiento almacenamiento = almacenamientoService.obtenerAlmacenamientoProducto(id);
+		List<Almacenamiento> almacenamiento = almacenamientoService.obtenerAlmacenamientoProducto(id);
 		
 		if(almacenamiento == null){
 			response.put("mensaje", "No se ha podido recuperar almacenamiento del producto ID:".concat(id.toString()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Almacenamiento>(almacenamiento, HttpStatus.OK);
+		return new ResponseEntity<List<Almacenamiento>>(almacenamiento, HttpStatus.OK);
 	}
 	
 	/**
@@ -157,8 +157,7 @@ public class AlmacenamientoRestController {
 		try {
 			almacenamientoActual.setNombre(almacenamiento.getNombre());
 			almacenamientoActual.setLugar(almacenamiento.getLugar());
-			almacenamientoActual.setProductos(almacenamiento.getProductos());
-			
+			almacenamientoActual.setInventarios(almacenamiento.getInventarios());
 			productoActualizado = almacenamientoService.save(almacenamientoActual);			
 		}catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el almacenamiento en  la base de datos");

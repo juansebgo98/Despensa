@@ -2,38 +2,44 @@ package com.despensa.personal.models.entity;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="almacenamientos")
-public class Almacenamiento implements Serializable{
+@Table(name = "almacenamientos")
+public class Almacenamiento implements Serializable {
 
-	private static final long serialVersionUID = 2899027107106949550L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    
+
+    @Column(name = "nombre")
     private String nombre;
-    
+
+    @Column(name = "lugar")
     private String lugar;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "almacenamiento")
-    private List<Producto> productos;
-    
-    public Almacenamiento() {
-    	}
-	public Almacenamiento(Long id, String nombre, String lugar, List<Producto> productos) {
+
+    @OneToMany(mappedBy = "almacenamiento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "inventarioAlmacenamiento")
+    private List<Inventario> inventarios = new ArrayList<>();
+
+	public Almacenamiento(Long id, String nombre, String lugar, List<Inventario> inventarios) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.lugar = lugar;
-		this.productos = productos;
+		this.inventarios = inventarios;
+	}
+
+	public Almacenamiento() {
+		super();
 	}
 
 	public Long getId() {
@@ -60,12 +66,13 @@ public class Almacenamiento implements Serializable{
 		this.lugar = lugar;
 	}
 
-	public List<Producto> getProductos() {
-		return productos;
+	public List<Inventario> getInventarios() {
+		return inventarios;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
+	public void setInventarios(List<Inventario> inventarios) {
+		this.inventarios = inventarios;
 	}
-
+   
+    
 }
