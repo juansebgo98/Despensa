@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.despensa.personal.models.dao.IInventarioDao;
 import com.despensa.personal.models.entity.Producto;
+import com.despensa.personal.models.entity.Almacenamiento;
 import com.despensa.personal.models.entity.Inventario;
 
 @Service
@@ -54,6 +55,12 @@ public class InventariosServiceImpl implements IInventarioService{
 	@Transactional
 	public List<Inventario> obtenerInventariosPorProducto(Producto producto) {
 		return inventarioDao.obtenerPorProducto(producto);
+	}
+
+
+	@Override
+	public List<Inventario> obtenerInventariosPorProductoAlmacen(Producto producto, Almacenamiento almacen) {
+		return inventarioDao.obtenerPorProducto(producto,almacen);
 	}
 
 

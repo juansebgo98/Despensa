@@ -30,6 +30,7 @@ import com.despensa.personal.models.services.IAlmacenamientoService;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
+//@CrossOrigin(origins = {"http://http://192.168.18.158:4200"})
 @RestController
 @RequestMapping("/api")
 public class AlmacenamientoRestController {

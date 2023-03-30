@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.despensa.personal.models.entity.Producto;
+import com.despensa.personal.models.entity.Almacenamiento;
 import com.despensa.personal.models.entity.Inventario;
 import com.despensa.personal.models.services.IProductoService;
 import com.despensa.personal.models.services.IInventarioService;
@@ -31,6 +32,7 @@ import com.despensa.personal.models.services.IInventarioService;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
+//@CrossOrigin(origins = {"http://192.168.18.158:4200"})
 @RestController
 @RequestMapping("/api")
 public class InventarioRestController {
@@ -77,6 +79,21 @@ public class InventarioRestController {
 		List<Inventario> lista = inventarioService.obtenerInventariosPorProducto(producto);
 		if(lista == null){
 			response.put("mensaje", "No se ha podido recuperar productos del almacenamiento ID:".concat(id.toString()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Inventario>>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping("/inventarios/producto/{idPro}/almacenamiento/{idAl}")
+	public ResponseEntity<?> buscarPorProductoAlmacenamiento(@PathVariable Long idPro, @PathVariable Long idAl){
+		Map<String, Object> response = new HashMap<>();
+		Producto producto = new Producto();
+		producto.setId(idPro);
+		Almacenamiento almacen = new Almacenamiento();
+		almacen.setId(idAl);
+		List<Inventario> lista = inventarioService.obtenerInventariosPorProductoAlmacen(producto,almacen);
+		if(lista == null){
+			response.put("mensaje", "No se ha podido recuperar productos del almacenamiento ID:".concat(idPro.toString()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Inventario>>(lista, HttpStatus.OK);
