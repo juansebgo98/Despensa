@@ -1,5 +1,5 @@
 # Usamos una imagen de Java como base
-FROM adoptopenjdk:17-jdk-hotspot
+FROM openjdk:17-jdk
 
 # Directorio de trabajo
 WORKDIR /app
