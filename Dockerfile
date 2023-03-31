@@ -11,4 +11,4 @@ COPY target/despensa-0.0.1-SNAPSHOT.war app.war
 EXPOSE 8081
 
 # Comando de inicio de la aplicación
-CMD ["java", "-jar", "app.war"]
+ENTRYPOINT ["java", "-jar", "app.war"]
