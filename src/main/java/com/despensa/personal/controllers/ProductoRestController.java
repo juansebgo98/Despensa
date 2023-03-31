@@ -1,5 +1,6 @@
 package com.despensa.personal.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,18 @@ public class ProductoRestController {
 	@GetMapping("/productos")
 	public List<Producto> index(){
 		return productoService.findAll();
+	}
+	
+	@GetMapping("/productos/test")
+	public List<Producto> test(){
+		List<Producto> test = new ArrayList<>();
+		Producto p = new Producto();
+		
+		p.setId(1L);
+		p.setNombre("Test");
+		
+		test.add(p);
+		return test;
 	}
 	
 	/**

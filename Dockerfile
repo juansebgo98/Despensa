@@ -1,5 +1,5 @@
 # Usamos una imagen de Java como base
-FROM openjdk:17-jdk
+FROM openjdk:17-jdk-alpine
 
 # Directorio de trabajo
 WORKDIR /app
