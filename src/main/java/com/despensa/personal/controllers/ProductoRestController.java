@@ -47,18 +47,6 @@ public class ProductoRestController {
 		return productoService.findAll();
 	}
 	
-	@GetMapping("/productos/test")
-	public List<Producto> test(){
-		List<Producto> test = new ArrayList<>();
-		Producto p = new Producto();
-		
-		p.setId(1L);
-		p.setNombre("Test");
-		
-		test.add(p);
-		return test;
-	}
-	
 	/**
 	 * Obtenemos la lista de productos paginada 
 	 * @param page numero de pagina
