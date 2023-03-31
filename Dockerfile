@@ -5,7 +5,7 @@ FROM openjdk:17-jdk
 WORKDIR /app
 
 # Copiamos el archivo WAR del proyecto
-COPY target/Despensa-0.0.1-SNAPSHOT.war app.war
+COPY target/despensa-0.0.1-SNAPSHOT.war app.war
 
 # Puerto de exposición del contenedor
 EXPOSE 8081
