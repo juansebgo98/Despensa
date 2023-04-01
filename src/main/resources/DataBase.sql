@@ -5,23 +5,23 @@ CREATE DATABASE despensa;
 use despensa;
 
 CREATE TABLE almacenamientos (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(255),
   lugar VARCHAR(255)
 );
 
 CREATE TABLE productos (
-  id INT PRIMARY KEY,
+  id BIGINT PRIMARY KEY,
   imagen TEXT NOT NULL,
   nombre VARCHAR(255)
 );
 
 CREATE TABLE inventario (
-  id INT PRIMARY KEY,
-  almacenamiento_id INT,
-  producto_id INT,
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  almacenamiento_id BIGINT,
+  producto_id BIGINT,
   cantidad INT,
-  precio DECIMAL(10,2) NOT NULL,
+  precio DECIMAL(10,2),
   fecha_caducidad DATE,
   FOREIGN KEY (almacenamiento_id) REFERENCES almacenamientos(id),
   FOREIGN KEY (producto_id) REFERENCES productos(id)
