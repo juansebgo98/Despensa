@@ -1,6 +1,5 @@
 package com.despensa.personal.controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +28,9 @@ import com.despensa.personal.models.entity.Producto;
 import com.despensa.personal.models.services.IProductoService;
 
 import jakarta.validation.Valid;
-@CrossOrigin(origins = {"http://localhost:4200"})
-//@CrossOrigin(origins = {"http://192.168.18.158:4200"})
+
+//@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://100.79.195.105:8082"})
 @RestController
 @RequestMapping("/api")
 public class ProductoRestController {
