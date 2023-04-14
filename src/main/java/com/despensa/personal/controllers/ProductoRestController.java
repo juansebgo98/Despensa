@@ -30,7 +30,7 @@ import com.despensa.personal.models.services.IProductoService;
 import jakarta.validation.Valid;
 
 //@CrossOrigin(origins = {"http://localhost:4200"})
-@CrossOrigin(origins = {"http://100.79.195.105:8082"})
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class ProductoRestController {
