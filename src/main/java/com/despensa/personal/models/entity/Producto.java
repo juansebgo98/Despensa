@@ -23,6 +23,12 @@ public class Producto implements Serializable {
 
     @Column(name = "nombre")
     private String nombre;
+    
+    @Column(name = "cantidad_minima")
+    private Integer cantidadMinima;
+    
+    @Column(name = "tienda")
+    private String tienda;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "inventarioProducto")
@@ -34,12 +40,14 @@ public class Producto implements Serializable {
     
 	public Producto(Long id,
 			@NotEmpty(message = "no puede estar vacio") @Size(min = 2, max = 50, message = "el tamaño tiene que estar entre 4 y 12") String nombre,
-			@NotEmpty(message = "no puede estar vacio") String imagen, List<Inventario> inventarios) {
+			@NotEmpty(message = "no puede estar vacio") String imagen, List<Inventario> inventarios, Integer cantidadMinima,String tienda) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.imagen = imagen;
 		this.inventarios = inventarios;
+		this.cantidadMinima = cantidadMinima;
+		this.tienda = tienda;
 	}
 
 	public Long getId() {
@@ -73,6 +81,27 @@ public class Producto implements Serializable {
 	public void setInventarios(List<Inventario> inventarios) {
 		this.inventarios = inventarios;
 	}
+
+	public int getCantidadMinima() {
+		return cantidadMinima;
+	}
+
+	public void setCantidadMinima(int cantidadMinima) {
+		this.cantidadMinima = cantidadMinima;
+	}
+
+	public String getTienda() {
+		return tienda;
+	}
+
+	public void setTienda(String tienda) {
+		this.tienda = tienda;
+	}
+
+	public void setCantidadMinima(Integer cantidadMinima) {
+		this.cantidadMinima = cantidadMinima;
+	}
     
+	
 	
 }
