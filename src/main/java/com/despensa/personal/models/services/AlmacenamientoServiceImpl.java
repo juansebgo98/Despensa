@@ -12,17 +12,16 @@ import com.despensa.personal.models.dao.IAlmacenamientoDao;
 import com.despensa.personal.models.entity.Almacenamiento;
 
 @Service
-public class AlmacenamientoServiceImpl implements IAlmacenamientoService{
+public class AlmacenamientoServiceImpl implements IAlmacenamientoService {
 
 	@Autowired
 	private IAlmacenamientoDao almacenamientoDao;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Almacenamiento> findAll() {
 		return (List<Almacenamiento>) almacenamientoDao.findAll();
 	}
-	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -46,9 +45,8 @@ public class AlmacenamientoServiceImpl implements IAlmacenamientoService{
 	@Transactional
 	public void delete(Long id) {
 		almacenamientoDao.deleteById(id);
-		
-	}
 
+	}
 
 	@Override
 	public List<Almacenamiento> obtenerAlmacenamientoProducto(Long producto) {

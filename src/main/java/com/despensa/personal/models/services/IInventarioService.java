@@ -12,15 +12,15 @@ import com.despensa.personal.models.entity.Inventario;
 public interface IInventarioService {
 
 	public List<Inventario> findAll();
-	
+
 	public Page<Inventario> findAll(Pageable pageable);
 
 	public Inventario findById(Long id);
-	
+
 	public Inventario save(Inventario inventario);
-	
+
 	public void delete(Long id);
-	
+
 	public List<Inventario> obtenerInventariosPorProducto(Producto producto);
 
 	public List<Inventario> obtenerInventariosPorProductoAlmacen(Producto producto, Almacenamiento almacen);

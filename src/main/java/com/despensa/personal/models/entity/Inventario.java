@@ -11,31 +11,31 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "inventario")
 public class Inventario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "almacenamiento_id")
-    @JsonBackReference(value = "inventarioAlmacenamiento")
-    private Almacenamiento almacenamiento;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "almacenamiento_id")
+	@JsonBackReference(value = "inventarioAlmacenamiento")
+	private Almacenamiento almacenamiento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "producto_id")
-    @JsonBackReference(value = "inventarioProducto")
-    private Producto producto;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "producto_id")
+	@JsonBackReference(value = "inventarioProducto")
+	private Producto producto;
 
-    @Column(name = "cantidad")
-    private Integer cantidad;
+	@Column(name = "cantidad")
+	private Integer cantidad;
 
-    @Column(name = "precio", nullable = false)
-    private BigDecimal precio;
+	@Column(name = "precio", nullable = false)
+	private BigDecimal precio;
 
-    @Column(name = "fecha_caducidad")
-    private LocalDate fechaCaducidad;
+	@Column(name = "fecha_caducidad")
+	private LocalDate fechaCaducidad;
 
 	public Inventario(Long id, Almacenamiento almacenamiento, Producto producto, Integer cantidad,
 			@NotNull BigDecimal precio, @NotNull LocalDate fechaCaducidad) {
@@ -100,6 +100,4 @@ public class Inventario implements Serializable {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 
-
-	
 }

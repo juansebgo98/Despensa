@@ -9,7 +9,7 @@ import com.despensa.personal.models.entity.Almacenamiento;
 import com.despensa.personal.models.entity.Inventario;
 import com.despensa.personal.models.entity.Producto;
 
-public interface IInventarioDao extends JpaRepository<Inventario, Long>{
+public interface IInventarioDao extends JpaRepository<Inventario, Long> {
 
 	@Query("Select i from Inventario i WHERE i.producto = :producto")
 	List<Inventario> obtenerPorProducto(Producto producto);

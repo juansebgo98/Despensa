@@ -14,17 +14,16 @@ import com.despensa.personal.models.entity.Almacenamiento;
 import com.despensa.personal.models.entity.Inventario;
 
 @Service
-public class InventariosServiceImpl implements IInventarioService{
+public class InventariosServiceImpl implements IInventarioService {
 
 	@Autowired
 	private IInventarioDao inventarioDao;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inventario> findAll() {
 		return (List<Inventario>) inventarioDao.findAll();
 	}
-	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -48,7 +47,7 @@ public class InventariosServiceImpl implements IInventarioService{
 	@Transactional
 	public void delete(Long id) {
 		inventarioDao.deleteById(id);
-		
+
 	}
 
 	@Override
@@ -57,11 +56,9 @@ public class InventariosServiceImpl implements IInventarioService{
 		return inventarioDao.obtenerPorProducto(producto);
 	}
 
-
 	@Override
 	public List<Inventario> obtenerInventariosPorProductoAlmacen(Producto producto, Almacenamiento almacen) {
-		return inventarioDao.obtenerPorProducto(producto,almacen);
+		return inventarioDao.obtenerPorProducto(producto, almacen);
 	}
-
 
 }

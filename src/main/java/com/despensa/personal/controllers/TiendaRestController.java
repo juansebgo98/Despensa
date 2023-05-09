@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.despensa.personal.models.entity.Almacenamiento;
-import com.despensa.personal.models.entity.Producto;
 import com.despensa.personal.models.entity.Tienda;
-import com.despensa.personal.models.services.IProductoService;
+import com.despensa.personal.models.services.ITiendaService;
 
 import jakarta.validation.Valid;
 
@@ -34,65 +30,19 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
-public class ProductoRestController {
+public class TiendaRestController {
 
 	@Autowired
-	private IProductoService productoService;
+	private ITiendaService tiendaService;
 
 	/**
 	 * Obtenemos todos los productos
 	 * 
 	 * @return
 	 */
-	@GetMapping("/productos")
-	public List<Producto> index() {
-		return productoService.findAll();
-	}
-
-	/**
-	 * Obtenemos la lista de productos paginada
-	 * 
-	 * @param page numero de pagina
-	 * @return
-	 */
-	@GetMapping("/productos/page/{page}")
-	public Page<Producto> obtenerTodosProductosPaginados(@PathVariable Integer page) {
-		return productoService.findAll(PageRequest.of(page, 5));
-	}
-
-	/**
-	 * Obtenemos todos los productos de un almacenamiento
-	 * 
-	 * @param id Id del almacenamiento del que queremos obtener la lista de
-	 *           productos
-	 * @return
-	 */
-	@GetMapping("/productos/almacenamiento/{id}")
-	public ResponseEntity<?> obtenerProductoPorAlmacenamiento(@PathVariable Long id) {
-		Map<String, Object> response = new HashMap<>();
-		Almacenamiento almacenamiento = new Almacenamiento();
-		almacenamiento.setId(id);
-		List<Producto> listaProductos = productoService.obtenerProductosAlmacenamiento(almacenamiento);
-
-		if (listaProductos == null) {
-			response.put("mensaje", "No se ha podido recuperar productos del almacenamiento ID:".concat(id.toString()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<List<Producto>>(listaProductos, HttpStatus.OK);
-	}
-
-	@GetMapping("/productos/tienda/{id}")
-	public ResponseEntity<?> obtenerProductoPorTienda(@PathVariable Long id) {
-		Map<String, Object> response = new HashMap<>();
-		Tienda tienda = new Tienda();
-		tienda.setId(id);
-		List<Producto> listaProductos = productoService.obtenerProductosTienda(tienda);
-
-		if (listaProductos == null) {
-			response.put("mensaje", "No se ha podido recuperar productos del almacenamiento ID:".concat(id.toString()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<List<Producto>>(listaProductos, HttpStatus.OK);
+	@GetMapping("/tiendas")
+	public List<Tienda> obtenerTodasLasTiendas() {
+		return tiendaService.findAll();
 	}
 
 	/**
@@ -101,23 +51,23 @@ public class ProductoRestController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/productos/{id}")
+	@GetMapping("/tiendas/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> show(@PathVariable Long id) {
-		Producto producto = null;
+	public ResponseEntity<?> obtenerTiendaPorId(@PathVariable Long id) {
+		Tienda tienda = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
-			producto = productoService.findById(id);
+			tienda = tiendaService.findById(id);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al consultar la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		if (producto == null) {
-			response.put("mensaje", "El producto ID:".concat(id.toString().concat(" no existe en la base de datos")));
+		if (tienda == null) {
+			response.put("mensaje", "La tienda ID:".concat(id.toString().concat(" no existe en la base de datos")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+		return new ResponseEntity<Tienda>(tienda, HttpStatus.OK);
 	}
 
 	/**
@@ -127,10 +77,10 @@ public class ProductoRestController {
 	 * @param result
 	 * @return
 	 */
-	@PostMapping("/productos")
-	public ResponseEntity<?> create(@Valid @RequestBody Producto producto, BindingResult result) {
+	@PostMapping("/tiendas")
+	public ResponseEntity<?> crearTienda(@Valid @RequestBody Tienda producto, BindingResult result) {
 
-		Producto productoNew = null;
+		Tienda tiendaNew = null;
 		Map<String, Object> response = new HashMap<>();
 
 		if (result.hasErrors()) {
@@ -144,15 +94,15 @@ public class ProductoRestController {
 		}
 
 		try {
-			productoNew = productoService.save(producto);
+			tiendaNew = tiendaService.save(producto);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El producto ha sido creado con éxito!");
-		response.put("producto", productoNew);
+		response.put("mensaje", "La tienda ha sido creado con éxito!");
+		response.put("producto", tiendaNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
@@ -164,10 +114,10 @@ public class ProductoRestController {
 	 * @param id
 	 * @return
 	 */
-	@PutMapping("/productos/{id}")
-	public ResponseEntity<?> update(@Valid @RequestBody Producto producto, BindingResult result,
+	@PutMapping("/tiendas/{id}")
+	public ResponseEntity<?> actualizarTienda(@Valid @RequestBody Tienda producto, BindingResult result,
 			@PathVariable Long id) {
-		Producto productoActual = productoService.findById(id);
+		Tienda productoActual = tiendaService.findById(id);
 		Map<String, Object> response = new HashMap<>();
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream()
@@ -177,41 +127,38 @@ public class ProductoRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		if (productoActual == null) {
-			response.put("mensaje", "Error al actualizar el producto, no existe en la base de datos");
+			response.put("mensaje", "Error al actualizar la tienda, no existe en la base de datos");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		Producto productoActualizado = null;
+		Tienda productoActualizado = null;
 		try {
-//			productoActual.setNombre(producto.getNombre());
-//			productoActual.setCantidad(producto.getCantidad());
-//			productoActual.setInventarios(producto.getInventarios());
 
 			producto.setId(id);
 
-			productoActualizado = productoService.save(producto);
+			productoActualizado = tiendaService.save(producto);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al actualizar el producto en  la base de datos");
+			response.put("mensaje", "Error al actualizar la tienda en  la base de datos");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		response.put("mensaje", "El producto ha sido actualizado con exito");
+		response.put("mensaje", "La tienda ha sido actualizado con exito");
 		response.put("producto", productoActualizado);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/productos/{id}")
-	public ResponseEntity<?> delete(@PathVariable Long id) {
+	@DeleteMapping("/tiendas/{id}")
+	public ResponseEntity<?> eliminarTienda(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			productoService.delete(id);
+			tiendaService.delete(id);
 		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al borrar el producto en  la base de datos");
+			response.put("mensaje", "Error al borrar la tienda en  la base de datos");
 			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		response.put("mensaje", "Se ha borrar el producto en la base de datos");
+		response.put("mensaje", "Se ha borrar la tienda en la base de datos");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 

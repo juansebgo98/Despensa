@@ -11,19 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.despensa.personal.models.dao.IProductoDao;
 import com.despensa.personal.models.entity.Almacenamiento;
 import com.despensa.personal.models.entity.Producto;
+import com.despensa.personal.models.entity.Tienda;
 
 @Service
-public class ProductosServiceImpl implements IProductoService{
+public class ProductosServiceImpl implements IProductoService {
 
 	@Autowired
 	private IProductoDao productoDao;
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> findAll() {
 		return (List<Producto>) productoDao.findAll();
 	}
-	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -47,14 +47,19 @@ public class ProductosServiceImpl implements IProductoService{
 	@Transactional
 	public void delete(Long id) {
 		productoDao.deleteById(id);
-		
+
 	}
-	
+
 	@Override
 	@Transactional
 	public List<Producto> obtenerProductosAlmacenamiento(Almacenamiento almacenamiento) {
 		return productoDao.consultarProductosPorAlmacenamiento(almacenamiento.getId());
-		
+
+	}
+
+	@Override
+	public List<Producto> obtenerProductosTienda(Tienda tienda) {
+		return productoDao.consultarProductosPorTienda(tienda.getId());
 	}
 
 }

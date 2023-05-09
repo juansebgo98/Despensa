@@ -12,35 +12,37 @@ import jakarta.validation.constraints.*;
 @Table(name = "productos")
 public class Producto implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "imagen", nullable = false)
-    private String imagen;
+	@Column(name = "imagen", nullable = false)
+	private String imagen;
 
-    @Column(name = "nombre")
-    private String nombre;
-    
-    @Column(name = "cantidad_minima")
-    private Integer cantidadMinima;
-    
-    @Column(name = "tienda")
-    private String tienda;
+	@Column(name = "nombre")
+	private String nombre;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value = "inventarioProducto")
-    private List<Inventario> inventarios = new ArrayList<>();
+	@Column(name = "cantidad_minima")
+	private Integer cantidadMinima;
 
-    public Producto() {
-    	super();
-	}    
-    
+	@ManyToOne()
+	@JoinColumn(name = "tienda")
+	private Tienda tienda;
+
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference(value = "inventarioProducto")
+	private List<Inventario> inventarios = new ArrayList<>();
+
+	public Producto() {
+		super();
+	}
+
 	public Producto(Long id,
 			@NotEmpty(message = "no puede estar vacio") @Size(min = 2, max = 50, message = "el tamaño tiene que estar entre 4 y 12") String nombre,
-			@NotEmpty(message = "no puede estar vacio") String imagen, List<Inventario> inventarios, Integer cantidadMinima,String tienda) {
+			@NotEmpty(message = "no puede estar vacio") String imagen, List<Inventario> inventarios,
+			Integer cantidadMinima, Tienda tienda) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -90,18 +92,16 @@ public class Producto implements Serializable {
 		this.cantidadMinima = cantidadMinima;
 	}
 
-	public String getTienda() {
+	public Tienda getTienda() {
 		return tienda;
 	}
 
-	public void setTienda(String tienda) {
+	public void setTienda(Tienda tienda) {
 		this.tienda = tienda;
 	}
 
 	public void setCantidadMinima(Integer cantidadMinima) {
 		this.cantidadMinima = cantidadMinima;
 	}
-    
-	
-	
+
 }
