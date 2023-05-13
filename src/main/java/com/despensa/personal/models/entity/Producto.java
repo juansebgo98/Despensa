@@ -26,6 +26,9 @@ public class Producto implements Serializable {
 
 	@Column(name = "cantidad_minima")
 	private Integer cantidadMinima;
+	
+	@Column(name = "lista_compra")
+	private Boolean listaCompra;
 
 	@ManyToOne()
 	@JoinColumn(name = "tienda")
@@ -102,6 +105,14 @@ public class Producto implements Serializable {
 
 	public void setCantidadMinima(Integer cantidadMinima) {
 		this.cantidadMinima = cantidadMinima;
+	}
+
+	public Boolean getListaCompra() {
+		return listaCompra;
+	}
+
+	public void setListaCompra(Boolean listaCompra) {
+		this.listaCompra = listaCompra;
 	}
 
 }
