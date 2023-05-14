@@ -34,7 +34,7 @@ public class Producto implements Serializable {
 	@JoinColumn(name = "tienda")
 	private Tienda tienda;
 
-	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JsonManagedReference(value = "inventarioProducto")
 	private List<Inventario> inventarios = new ArrayList<>();
 

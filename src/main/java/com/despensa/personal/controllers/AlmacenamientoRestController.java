@@ -77,6 +77,25 @@ public class AlmacenamientoRestController {
 		}
 		return new ResponseEntity<List<Almacenamiento>>(almacenamiento, HttpStatus.OK);
 	}
+	
+	/**
+	 * Obtenemos el almacenamiento apartir de un inventario
+	 * 
+	 * @param id Id del almacenamiento del que queremos obtener la lista de
+	 *           almacenamiento
+	 * @return
+	 */
+	@GetMapping("/almacenamiento/inventario/{idInventario}")
+	public ResponseEntity<?> obtenerPorInventario(@PathVariable Long idInventario) {
+		Map<String, Object> response = new HashMap<>();
+		List<Almacenamiento> almacenamiento = almacenamientoService.obtenerAlmacenamientoInventario(idInventario);
+
+		if (almacenamiento == null) {
+			response.put("mensaje", "No se ha podido recuperar almacenamiento del producto ID:".concat(idInventario.toString()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Almacenamiento>>(almacenamiento, HttpStatus.OK);
+	}
 
 	/**
 	 * Obtener almacenamiento po rID

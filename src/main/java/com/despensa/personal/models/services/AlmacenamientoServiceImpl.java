@@ -53,4 +53,9 @@ public class AlmacenamientoServiceImpl implements IAlmacenamientoService {
 		return almacenamientoDao.obtenerAlmacenamientoProducto(producto);
 	}
 
+	@Override
+	public List<Almacenamiento> obtenerAlmacenamientoInventario(Long idInventario) {
+		return almacenamientoDao.obtenerAlmacenamientoInventario(idInventario);
+	}
+
 }

@@ -25,7 +25,7 @@ public class Almacenamiento implements Serializable {
 	@Column(name = "lugar")
 	private String lugar;
 
-	@OneToMany(mappedBy = "almacenamiento", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "almacenamiento", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JsonManagedReference(value = "inventarioAlmacenamiento")
 	private List<Inventario> inventarios = new ArrayList<>();
 

@@ -24,7 +24,7 @@ public class Tienda implements Serializable {
 	@Column(name = "nombre")
 	private String nombre;
 
-	@OneToMany(mappedBy = "tienda", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "tienda", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Producto> productos;
 
 	public Tienda() {
