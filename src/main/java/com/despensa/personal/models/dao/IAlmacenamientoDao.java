@@ -14,6 +14,6 @@ public interface IAlmacenamientoDao extends JpaRepository<Almacenamiento, Long> 
 	public List<Almacenamiento> obtenerAlmacenamientoProducto(@Param("productoId") Long productoId);
 
 	@Query("SELECT a FROM Almacenamiento a INNER JOIN Inventario i ON a.id = i.almacenamiento.id WHERE i.id = :idInventario")
-	public List<Almacenamiento> obtenerAlmacenamientoInventario(@Param("idInventario")Long idInventario);
+	public Almacenamiento obtenerAlmacenamientoInventario(@Param("idInventario")Long idInventario);
 
 }

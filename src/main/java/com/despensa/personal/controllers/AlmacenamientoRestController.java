@@ -88,13 +88,13 @@ public class AlmacenamientoRestController {
 	@GetMapping("/almacenamiento/inventario/{idInventario}")
 	public ResponseEntity<?> obtenerPorInventario(@PathVariable Long idInventario) {
 		Map<String, Object> response = new HashMap<>();
-		List<Almacenamiento> almacenamiento = almacenamientoService.obtenerAlmacenamientoInventario(idInventario);
+		Almacenamiento almacenamiento = almacenamientoService.obtenerAlmacenamientoInventario(idInventario);
 
 		if (almacenamiento == null) {
 			response.put("mensaje", "No se ha podido recuperar almacenamiento del producto ID:".concat(idInventario.toString()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Almacenamiento>>(almacenamiento, HttpStatus.OK);
+		return new ResponseEntity<Almacenamiento>(almacenamiento, HttpStatus.OK);
 	}
 
 	/**

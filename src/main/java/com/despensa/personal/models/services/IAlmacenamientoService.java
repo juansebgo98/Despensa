@@ -19,5 +19,5 @@ public interface IAlmacenamientoService {
 
 	public void delete(Long id);
 
-	public List<Almacenamiento> obtenerAlmacenamientoInventario(Long idInventario);
+	public Almacenamiento obtenerAlmacenamientoInventario(Long idInventario);
 }
